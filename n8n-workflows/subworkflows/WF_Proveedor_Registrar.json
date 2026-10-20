@@ -1,0 +1,54 @@
+{
+  "name": "WF_Proveedor_Registrar",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "proveedor",
+              "type": "json"
+            }
+          ]
+        }
+      },
+      "id": "trigger-wf-proveedor-registrar",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3001/api/proveedores/registrar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.proveedor || $json }}",
+        "options": {}
+      },
+      "id": "http-registrar-proveedor-db",
+      "name": "HTTP Request: db.json Registrar Proveedor",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request: db.json Registrar Proveedor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

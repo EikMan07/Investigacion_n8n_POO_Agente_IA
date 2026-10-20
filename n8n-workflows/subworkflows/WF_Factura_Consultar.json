@@ -1,0 +1,84 @@
+{
+  "name": "WF_Factura_Consultar",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "proveedor",
+              "type": "string"
+            },
+            {
+              "name": "estado",
+              "type": "string"
+            },
+            {
+              "name": "fecha_inicio",
+              "type": "string"
+            },
+            {
+              "name": "fecha_fin",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "trigger-wf-factura-consultar",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3001/api/facturas/consultar",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "proveedor",
+              "value": "={{ $json.proveedor || '' }}"
+            },
+            {
+              "name": "estado",
+              "value": "={{ $json.estado || '' }}"
+            },
+            {
+              "name": "fecha_inicio",
+              "value": "={{ $json.fecha_inicio || '' }}"
+            },
+            {
+              "name": "fecha_fin",
+              "value": "={{ $json.fecha_fin || '' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "http-consultar-factura-db",
+      "name": "HTTP Request: db.json Consultar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request: db.json Consultar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

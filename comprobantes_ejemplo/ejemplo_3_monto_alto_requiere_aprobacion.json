@@ -1,0 +1,17 @@
+{
+  "accion": "registrar",
+  "mensaje": "Por favor registrar y validar la factura con folio CLOUD-2026-X1 de Servicios de Nube y Redes CloudTech S.A.",
+  "session_id": "SES-TEST-3",
+  "factura": {
+    "proveedor": "Servicios de Nube y Redes CloudTech S.A.",
+    "identificacion_fiscal": "3-102-445566",
+    "folio": "CLOUD-2026-X1",
+    "fecha": "2026-10-20",
+    "subtotal": 60000,
+    "impuestos": 9600,
+    "total": 69600,
+    "moneda": "CRC",
+    "archivo_nombre": "3_monto_alto_cloudtech.pdf",
+    "permitir_reprocesar": true
+  }
+}

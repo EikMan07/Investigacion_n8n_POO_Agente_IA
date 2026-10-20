@@ -1,0 +1,68 @@
+{
+  "name": "WF_Proveedor_Buscar",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "identificacion_fiscal",
+              "type": "string"
+            },
+            {
+              "name": "nombre",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "trigger-wf-proveedor-buscar",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3001/api/proveedores/buscar",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "identificacion_fiscal",
+              "value": "={{ $json.identificacion_fiscal || '' }}"
+            },
+            {
+              "name": "nombre",
+              "value": "={{ $json.nombre || '' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "http-buscar-proveedor-db",
+      "name": "HTTP Request: db.json Buscar Proveedor",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request: db.json Buscar Proveedor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "WF_Factura_Guardar",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "factura",
+              "type": "json"
+            }
+          ]
+        }
+      },
+      "id": "trigger-wf-factura-guardar",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3001/api/facturas/guardar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.factura || $json }}",
+        "options": {}
+      },
+      "id": "http-guardar-factura-db",
+      "name": "HTTP Request: db.json Guardar UPSERT",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request: db.json Guardar UPSERT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "info": {
+    "_postman_id": "c1f78234-8b63-4de7-91bb-45738ab71034",
+    "name": "Suite de Pruebas: Facturas n8n con POO y db.json",
+    "description": "Colección completa de pruebas para el Asistente Inteligente de Facturas en n8n y su API REST local sobre db.json. Cubre los 5 casos de negocio clave: registro válido, rechazo aritmético determinista, umbral de aprobación (>50K) y morosidad, consulta con memoria conversacional y aprobación humana.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "n8n_webhook_url",
+      "value": "http://localhost:5678/webhook/facturas",
+      "type": "string"
+    },
+    {
+      "key": "db_api_url",
+      "value": "http://localhost:3001/api",
+      "type": "string"
+    },
+    {
+      "key": "session_id",
+      "value": "SES-POSTMAN-2026",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Registro de Factura Válida (Cuadra subtotal + impuestos == total)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accion\": \"registrar\",\n  \"mensaje\": \"Por favor registra la factura con folio A-8831 de Papelería López S.A.\",\n  \"session_id\": \"{{session_id}}\",\n  \"usuario_id\": \"USR-POSTMAN-QA\",\n  \"payloadExtra\": {\n    \"proveedor\": \"Papelería López S.A.\",\n    \"identificacion_fiscal\": \"3-101-123456\",\n    \"folio\": \"A-9912\",\n    \"fecha\": \"2026-10-20\",\n    \"subtotal\": 1200.00,\n    \"impuestos\": 192.00,\n    \"total\": 1392.00,\n    \"moneda\": \"CRC\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{n8n_webhook_url}}",
+          "host": ["{{n8n_webhook_url}}"]
+        },
+        "description": "Envía una factura cuyos montos cuadran perfectamente (1200 + 192 = 1392 CRC). Verifica que el sub-workflow WF_Factura_Validar dé su visto bueno y se persista en db.json con requiere_aprobacion: false."
+      },
+      "response": []
+    },
+    {
+      "name": "2. Detección de Error Aritmético Determinista (Rechazo sin guardar)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accion\": \"registrar\",\n  \"mensaje\": \"Intenta registrar esta factura con montos alterados\",\n  \"session_id\": \"{{session_id}}\",\n  \"usuario_id\": \"USR-POSTMAN-QA\",\n  \"payloadExtra\": {\n    \"proveedor\": \"Papelería López S.A.\",\n    \"identificacion_fiscal\": \"3-101-123456\",\n    \"folio\": \"ERR-ALTERADA-01\",\n    \"fecha\": \"2026-10-20\",\n    \"subtotal\": 1200.00,\n    \"impuestos\": 192.00,\n    \"total\": 2000.00,\n    \"moneda\": \"CRC\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{n8n_webhook_url}}",
+          "host": ["{{n8n_webhook_url}}"]
+        },
+        "description": "Envía una factura fraudulenta o errónea donde subtotal + impuestos (1392) != total informado (2000). El nodo determinista Code en WF_Factura_Validar debe abortar el guardado y retornar error explicativo."
+      },
+      "response": []
+    },
+    {
+      "name": "3. Factura de Monto Alto (>50K) o Proveedor Moroso/Omiso (Retención)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accion\": \"registrar\",\n  \"mensaje\": \"Registrar factura de servicios mensuales de infraestructura en la nube\",\n  \"session_id\": \"{{session_id}}\",\n  \"usuario_id\": \"USR-POSTMAN-QA\",\n  \"payloadExtra\": {\n    \"proveedor\": \"Servicios de Nube y Redes CloudTech S.A.\",\n    \"identificacion_fiscal\": \"3-102-445566\",\n    \"folio\": \"CLOUD-POSTMAN-77\",\n    \"fecha\": \"2026-10-20\",\n    \"subtotal\": 56034.48,\n    \"impuestos\": 8965.52,\n    \"total\": 65000.00,\n    \"moneda\": \"CRC\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{n8n_webhook_url}}",
+          "host": ["{{n8n_webhook_url}}"]
+        },
+        "description": "Envía una factura que supera el umbral de 50,000 CRC. El sistema debe marcar requiere_aprobacion = true, invocar WF_Notificador_Notificar para alertar a finanzas y dejarla en estado pendiente_aprobacion."
+      },
+      "response": []
+    },
+    {
+      "name": "4. Consulta en Lenguaje Natural con Memoria en Búfer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accion\": \"consultar\",\n  \"mensaje\": \"¿Cuánto debo a Papelería López y qué facturas están pendientes de pago?\",\n  \"session_id\": \"{{session_id}}\",\n  \"usuario_id\": \"USR-POSTMAN-QA\"\n}"
+        },
+        "url": {
+          "raw": "{{n8n_webhook_url}}",
+          "host": ["{{n8n_webhook_url}}"]
+        },
+        "description": "Prueba la consulta de facturas usando lenguaje natural contra el nodo AI Agent conectado a Window Buffer Memory y a la tool consultar_facturas sobre db.json."
+      },
+      "response": []
+    },
+    {
+      "name": "5. Aprobación Humana Manual (Actualización de Estado en db.json)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"aprobada\": true,\n  \"usuario\": \"Director Financiero Carlos Mendoza\",\n  \"comentario\": \"Aprobado pago tras verificación de presupuesto mensual de TI.\"\n}"
+        },
+        "url": {
+          "raw": "{{db_api_url}}/facturas/F-2026-0002/aprobar",
+          "host": ["{{db_api_url}}"],
+          "path": ["facturas", "F-2026-0002", "aprobar"]
+        },
+        "description": "Simula la acción de un tomador de decisiones humano aprobando una factura retenida por monto alto (F-2026-0002). Actualiza atómicamente el estado en db.json a 'aprobada'."
+      },
+      "response": []
+    }
+  ]
+}

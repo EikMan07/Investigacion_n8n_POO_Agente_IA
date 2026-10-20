@@ -1,0 +1,17 @@
+{
+  "accion": "registrar",
+  "mensaje": "Por favor registrar y validar la factura con folio MOR-7712 de Distribuidora Central S.A.",
+  "session_id": "SES-TEST-4",
+  "factura": {
+    "proveedor": "Distribuidora Central S.A.",
+    "identificacion_fiscal": "3-101-654321",
+    "folio": "MOR-7712",
+    "fecha": "2026-10-20",
+    "subtotal": 3000,
+    "impuestos": 480,
+    "total": 3480,
+    "moneda": "CRC",
+    "archivo_nombre": "4_proveedor_moroso_distribuidora.pdf",
+    "permitir_reprocesar": true
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "WF_Pago_Programar",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "factura_id",
+              "type": "string"
+            },
+            {
+              "name": "fecha",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "trigger-wf-pago-programar",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3001/api/pagos/programar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { factura_id: $json.factura_id, fecha_programada: $json.fecha } }}",
+        "options": {}
+      },
+      "id": "http-programar-pago-db",
+      "name": "HTTP Request: db.json Programar Pago",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request: db.json Programar Pago",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

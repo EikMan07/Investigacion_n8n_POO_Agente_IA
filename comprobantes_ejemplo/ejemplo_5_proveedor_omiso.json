@@ -1,0 +1,17 @@
+{
+  "accion": "registrar",
+  "mensaje": "Por favor registrar y validar la factura con folio OMI-5011 de Consultores Técnicos Alfa Ltda.",
+  "session_id": "SES-TEST-5",
+  "factura": {
+    "proveedor": "Consultores Técnicos Alfa Ltda.",
+    "identificacion_fiscal": "3-101-998877",
+    "folio": "OMI-5011",
+    "fecha": "2026-10-20",
+    "subtotal": 15000,
+    "impuestos": 2400,
+    "total": 17400,
+    "moneda": "CRC",
+    "archivo_nombre": "5_proveedor_omiso_consultores.pdf",
+    "permitir_reprocesar": true
+  }
+}

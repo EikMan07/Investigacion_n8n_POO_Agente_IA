@@ -1,0 +1,17 @@
+{
+  "accion": "registrar",
+  "mensaje": "Por favor registrar y validar la factura con folio A-8835 de Papelería López S.A.",
+  "session_id": "SES-TEST-1",
+  "factura": {
+    "proveedor": "Papelería López S.A.",
+    "identificacion_fiscal": "3-101-123456",
+    "folio": "A-8835",
+    "fecha": "2026-10-20",
+    "subtotal": 1200,
+    "impuestos": 192,
+    "total": 1392,
+    "moneda": "CRC",
+    "archivo_nombre": "1_factura_valida_papeleria.pdf",
+    "permitir_reprocesar": true
+  }
+}

@@ -1,0 +1,39 @@
+# Dependencias y módulos (evita subir miles de archivos pesados)
+node_modules/
+*/node_modules/
+backend-db/node_modules/
+facturas-ia/node_modules/
+
+# Compilados y builds
+dist/
+dist-ssr/
+build/
+*/dist/
+
+# Logs y depuración
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Archivos de configuración local de editores
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos de entorno locales específicos de usuario (si aplica)
+*.env.local
+*.env.*.local

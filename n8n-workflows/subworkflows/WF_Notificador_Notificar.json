@@ -1,0 +1,170 @@
+{
+  "name": "WF_Notificador_Notificar",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "canal",
+              "type": "string"
+            },
+            {
+              "name": "destinatario",
+              "type": "string"
+            },
+            {
+              "name": "mensaje",
+              "type": "string"
+            },
+            {
+              "name": "factura_id",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "trigger-wf-notificador",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.canal || 'email' }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "email"
+            },
+            {
+              "value2": "slack"
+            },
+            {
+              "value2": "telegram"
+            },
+            {
+              "value2": "whatsapp"
+            }
+          ]
+        }
+      },
+      "id": "switch-canal",
+      "name": "Switch Polimorfismo Canal",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3001/api/notificaciones/enviar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { canal: 'email', destinatario: $json.destinatario, mensaje: $json.mensaje, factura_id: $json.factura_id } }}",
+        "options": {}
+      },
+      "id": "despacho-email",
+      "name": "Despacho Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 160]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3001/api/notificaciones/enviar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { canal: 'slack', destinatario: $json.destinatario, mensaje: $json.mensaje, factura_id: $json.factura_id } }}",
+        "options": {}
+      },
+      "id": "despacho-slack",
+      "name": "Despacho Slack",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 280]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3001/api/notificaciones/enviar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { canal: 'telegram', destinatario: $json.destinatario, mensaje: $json.mensaje, factura_id: $json.factura_id } }}",
+        "options": {}
+      },
+      "id": "despacho-telegram",
+      "name": "Despacho Telegram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3001/api/notificaciones/enviar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { canal: 'whatsapp', destinatario: $json.destinatario, mensaje: $json.mensaje, factura_id: $json.factura_id } }}",
+        "options": {}
+      },
+      "id": "despacho-whatsapp",
+      "name": "Despacho WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 520]
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch Polimorfismo Canal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Polimorfismo Canal": {
+      "main": [
+        [
+          {
+            "node": "Despacho Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Despacho Slack",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Despacho Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Despacho WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

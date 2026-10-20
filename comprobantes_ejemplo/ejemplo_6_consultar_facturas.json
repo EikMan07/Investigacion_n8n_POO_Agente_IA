@@ -1,0 +1,15 @@
+{
+  "accion": "consultar",
+  "mensaje": "¿Cuáles facturas tenemos registradas y cuál es el monto adeudado a Papelería López?",
+  "session_id": "SES-TEST-CONSULTA-FACTURAS",
+  "payloadExtra": {
+    "proveedor": "Papelería López S.A.",
+    "estado": "validada"
+  },
+  "ejemplos_preguntas_adicionales": [
+    "¿Cuánto le debemos en total a Papelería López?",
+    "¿Cuáles facturas requieren aprobación gerencial por monto mayor a 50000?",
+    "¿Existen facturas asociadas a proveedores morosos u omisos?",
+    "Listar todas las facturas en estado validada"
+  ]
+}

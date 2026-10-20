@@ -1,0 +1,63 @@
+{
+  "name": "Suite_Subworkflows_Clases_POO_n8n",
+  "version": "1.0.0",
+  "description": "Colección completa de 8 sub-workflows POO para Asistente Inteligente de Facturas PyME",
+  "subworkflows": [
+    {
+      "name": "WF_Factura_Crear",
+      "clase": "WF_Factura",
+      "metodo": "Crear",
+      "descripcion": "Crea la estructura de una factura, asigna ID único y fecha, estado inicial 'pendiente'",
+      "archivo": "subworkflows/WF_Factura_Crear.json"
+    },
+    {
+      "name": "WF_Factura_Validar",
+      "clase": "WF_Factura",
+      "metodo": "Validar",
+      "descripcion": "Valida determinísticamente sumas aritméticas, duplicados de folio, cédula y morosidad",
+      "archivo": "subworkflows/WF_Factura_Validar.json"
+    },
+    {
+      "name": "WF_Factura_Guardar",
+      "clase": "WF_Factura",
+      "metodo": "Guardar",
+      "descripcion": "Realiza UPSERT atómico en db.json",
+      "archivo": "subworkflows/WF_Factura_Guardar.json"
+    },
+    {
+      "name": "WF_Factura_Consultar",
+      "clase": "WF_Factura",
+      "metodo": "Consultar",
+      "descripcion": "Filtra facturas por proveedor, estado, fechas o folio en db.json",
+      "archivo": "subworkflows/WF_Factura_Consultar.json"
+    },
+    {
+      "name": "WF_Proveedor_Buscar",
+      "clase": "WF_Proveedor",
+      "metodo": "Buscar",
+      "descripcion": "Busca proveedor por cédula o nombre en db.json",
+      "archivo": "subworkflows/WF_Proveedor_Buscar.json"
+    },
+    {
+      "name": "WF_Proveedor_Registrar",
+      "clase": "WF_Proveedor",
+      "metodo": "Registrar",
+      "descripcion": "Registra nuevo proveedor en db.json",
+      "archivo": "subworkflows/WF_Proveedor_Registrar.json"
+    },
+    {
+      "name": "WF_Pago_Programar",
+      "clase": "WF_Pago",
+      "metodo": "Programar",
+      "descripcion": "Programa recordatorio de pago y fecha de vencimiento en db.json",
+      "archivo": "subworkflows/WF_Pago_Programar.json"
+    },
+    {
+      "name": "WF_Notificador_Notificar",
+      "clase": "WF_Notificador",
+      "metodo": "Notificar",
+      "descripcion": "Despacha notificaciones polimórficas (email, slack, telegram, whatsapp) y registra en db.json",
+      "archivo": "subworkflows/WF_Notificador_Notificar.json"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1034 >>
+stream
+BT
+/F1 18 Tf
+50 730 Td
+(COMPROBANTE FISCAL CON ERROR - DISCREPANCIA) Tj
+0 -28 Td
+/F1 11 Tf
+0 -16 Td
+(Emisor: Papeleria Lopez S.A.) Tj
+0 -16 Td
+(Cedula Juridica: 3-101-123456) Tj
+0 -16 Td
+(Folio: ERR-FRAUDE-99 | Fecha: 2026-10-20) Tj
+0 -16 Td
+(------------------------------------------------------------------------) Tj
+0 -16 Td
+(DETALLE DE FACTURA:) Tj
+0 -16 Td
+(1. Resmas de Papel Bond Carta x20 ........... Subtotal: CRC 800.00) Tj
+0 -16 Td
+(2. Tinta Negra Epson L3150 x2 .............. Subtotal: CRC 400.00) Tj
+0 -16 Td
+(------------------------------------------------------------------------) Tj
+0 -16 Td
+(SUBTOTAL: ....................................... CRC 1,200.00) Tj
+0 -16 Td
+(IMPUESTO IVA: ................................... CRC   192.00) Tj
+0 -16 Td
+(TOTAL A PAGAR: ................................. CRC 2,000.00) Tj
+0 -16 Td
+(------------------------------------------------------------------------) Tj
+0 -16 Td
+([Nota de prueba]: Caso: Error Aritmetico (1200 + 192 != 2000). Rechazado por validacion de codigo.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001327 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1397
+%%EOF

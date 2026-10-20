@@ -1,0 +1,83 @@
+{
+  "proveedores": [
+    {
+      "id": "PROV-001",
+      "nombre": "Papelería López S.A.",
+      "identificacion_fiscal": "3-101-123456",
+      "email": "ventas@papelerialopez.com",
+      "telefono": "+506 2222-3344",
+      "canal_preferido": "email",
+      "estado_fiscal": "al_dia",
+      "creado_en": "2026-01-15T08:00:00.000Z"
+    },
+    {
+      "id": "PROV-002",
+      "nombre": "Distribuidora Central S.A.",
+      "identificacion_fiscal": "3-101-654321",
+      "email": "cobros@distribuidoracentral.com",
+      "telefono": "+506 2244-5566",
+      "canal_preferido": "whatsapp",
+      "estado_fiscal": "moroso",
+      "creado_en": "2026-02-10T10:30:00.000Z"
+    },
+    {
+      "id": "PROV-003",
+      "nombre": "Consultores Técnicos Alfa Ltda.",
+      "identificacion_fiscal": "3-101-998877",
+      "email": "finanzas@consultoresalfa.net",
+      "telefono": "+506 8899-1122",
+      "canal_preferido": "slack",
+      "estado_fiscal": "omiso",
+      "creado_en": "2026-03-01T14:15:00.000Z"
+    },
+    {
+      "id": "PROV-004",
+      "nombre": "Servicios de Nube y Redes CloudTech S.A.",
+      "identificacion_fiscal": "3-102-445566",
+      "email": "facturacion@cloudtech.cr",
+      "telefono": "+506 2500-8800",
+      "canal_preferido": "email",
+      "estado_fiscal": "al_dia",
+      "creado_en": "2026-01-20T11:00:00.000Z"
+    }
+  ],
+  "facturas": [
+    {
+      "id": "F-2026-0002",
+      "proveedor": "Papeleria Lopez S.A.",
+      "proveedor_id": "PROV-001",
+      "identificacion_fiscal": "3-101-123456",
+      "folio": "A-8831",
+      "fecha": "2026-10-20",
+      "subtotal": 1200,
+      "impuestos": 192,
+      "total": 1392,
+      "moneda": "CRC",
+      "estado": "validada",
+      "vence": "2026-11-19",
+      "requiere_aprobacion": false,
+      "aprobada_por": null,
+      "comentario_aprobacion": null,
+      "archivo_nombre": "factura_ejemplo_papeleria.pdf",
+      "alertas_fiscales": [],
+      "creado_en": "2026-10-20T20:36:55.128Z"
+    }
+  ],
+  "pagos": [],
+  "notificaciones": [],
+  "logs_error": [
+    {
+      "id": "ERR-2026-0001",
+      "workflow": "WF_Factura_Validar",
+      "nodo": "Code Comprobar Sumas",
+      "mensaje_error": "Discrepancia aritmética: subtotal (1000) + impuestos (130) != total informado (1200)",
+      "payload": {
+        "folio": "TEST-DISCREPANCIA",
+        "subtotal": 1000,
+        "impuestos": 130,
+        "total": 1200
+      },
+      "fecha": "2026-10-19T11:00:00.000Z"
+    }
+  ]
+}
